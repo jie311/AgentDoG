@@ -10,10 +10,7 @@ Autonomous agents (e.g., tool-using LLM agents, mobile agents, web agents) often
 
 **AgentGuard** addresses this gap by:
 
-* Modeling **agent trajectories** as first-class objects
-* Providing **fine-grained risk taxonomy** across scenarios
-* Supporting **trajectory-level risk detection and classification**
-* Enabling both **offline evaluation** and **online guarding**
+
 
 AgentGuard can be used as:
 
@@ -21,55 +18,32 @@ AgentGuard can be used as:
 * A **risk classifier** for agent trajectories
 * A **guard module** integrated into agent systems
 
+| Name                  | Type     |Download                                                                                                                                                                        |
+|-----------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AgentGuard-0.6B         | Generative Guard    | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard  )                                |
+| AgentGuard-Gen-4B         | Generative Guard     | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard  )                                           |
+| AgentGuard-8B         | Generative Guard     | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard  )                              |
+|AgentGuard-Stream-0.6B         | Stream Guard     | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard  )                               |
+
+
+For more details, please refer to our [Technical Report](https://github.com//blob/main/_Technical_Report.pdf).
 ---
 
-## ✨ Key Features
+## ✨ Safety Taxonomy
 
-* **Trajectory-level risk assessment** rather than single-turn analysis
-* **Scenario-aware risk taxonomy** (task automation, web interaction, mobile control, etc.)
-* **Multi-dimensional labels**: risk type, failure mode, severity
-* **Model-agnostic**: works with different agent architectures and LLM backends
-* **Extensible design** for new scenarios, risks, and guard policies
 
 ---
 
 ## 🧠 Methodology
 
-### Problem Definition
+### Task Definition
 
-Given an agent execution trajectory:
 
-```
-T = {(o₁, a₁), (o₂, a₂), ..., (oₙ, aₙ)}
-```
+###  Data Synthesis and Collection
 
-AgentGuard aims to predict:
 
-* Whether the trajectory is **risky**
-* The **risk category** (e.g., security, privacy, physical harm)
-* The **failure mode** (e.g., instruction hijacking, unsafe tool use)
+### Training
 
-### Core Idea
-
-AgentGuard models risk as an emergent property of *sequential decisions* rather than isolated actions. It captures:
-
-* Cross-step dependency
-* Latent intent drift
-* Compounded unsafe behaviors
-
-### Architecture (Example)
-
-* Trajectory encoder (text / multimodal)
-* Risk-aware representation learning
-* Multi-head prediction:
-
-  * Risk label (safe / unsafe)
-  * Risk type
-  * Failure mode
-
-> **Note**: The framework does not assume a specific backbone model; LLM-based, transformer-based, or hybrid encoders are all supported.
-
----
 
 ## 📊 Performance Highlights
 
@@ -91,28 +65,6 @@ Example metrics:
 | ---------- | -------- | ----------- | ----- |
 | AgentJudge | XX.X     | XX.X        | XX.X  |
 | SAFE       | XX.X     | XX.X        | XX.X  |
-
----
-
-## 🧩 Risk Taxonomy
-
-AgentGuard uses a hierarchical risk taxonomy:
-
-* **Risk Type**
-
-  * Security & Privacy
-  * Physical & Mental Wellbeing
-  * Financial & Resource Abuse
-  * System Misuse
-
-* **Failure Mode** (examples)
-
-  * Executed instructions from untrusted / embedded sources
-  * Unsafe tool invocation
-  * Over-privileged action chaining
-  * Misaligned goal execution
-
-This taxonomy covers risk scenarios overlooked by existing datasets.
 
 ---
 
@@ -159,24 +111,6 @@ Supported datasets:
 
 ---
 
-## 🔌 Integration as an Online Guard
-
-AgentGuard can be integrated into agent loops:
-
-```python
-for step in agent.run():
-    guard_result = guard.check(step)
-    if guard_result.block:
-        break
-```
-
-Use cases:
-
-* Real-time action blocking
-* Risk-aware logging
-* Human-in-the-loop escalation
-
----
 
 ## 📁 Repository Structure
 
