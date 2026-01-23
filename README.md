@@ -166,7 +166,7 @@ We also introduce a novel hierarchical framework for Agentic Attribution, design
 To evaluate the effectiveness of the proposed agentic attribution framework, we conducted several case studies across diverse scenarios. The figure illustrates how our framework localizes decision drivers across four representative cases. The highlighted regions denote the historical components and fine-grained sentences identified by our framework as the primary decision drivers.
 
 <p align="center">
-  <img src="figures/agent_xai_example" width="95%" alt="Data Synthesis Pipeline"/>
+  <img src="figures/agent_xai_fig_exp_case.jpg" width="95%" alt="Data Synthesis Pipeline"/>
 </p>
 <p align="center"><em>Figure: Illustration of attribution results across four representative scenarios.</em></p>
 
