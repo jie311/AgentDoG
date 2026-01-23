@@ -1,3 +1,17 @@
+<p align="center">
+  <img src="figures/welcome.png" width="80%" alt="AgentDog Welcome"/>
+</p>
+
+<p align="center">
+  🤗 <a href="https://huggingface.co/AI45Research/AgentGuard"><b>Hugging Face</b></a>&nbsp&nbsp | &nbsp&nbsp
+  🤖 <a href="https://modelscope.cn/collections/AgentDog-000000000000000000000000">ModelScope</a>&nbsp&nbsp | &nbsp&nbsp
+  📄 <a href="https://github.com/AI45Lab/AgentGuard/blob/main/AgentDog_Technical_Report.pdf">Technical Report</a>&nbsp&nbsp | &nbsp&nbsp
+  🌐 <a href="https://example.com/agentdog-demo">Demo</a>&nbsp&nbsp | &nbsp&nbsp
+  📘 <a href="https://example.com/agentdog-docs">Documentation</a>
+</p>
+
+Visit our Hugging Face or ModelScope organization (click links above), search checkpoints with names starting with `AgentDoG-`, and you will find all you need! Enjoy!
+
 # AgentDog
 
 **AgentDog** is a risk-aware evaluation and guarding framework for autonomous agents. It focuses on *trajectory-level risk assessment*, aiming to determine whether an agent’s execution trajectory contains safety risks under diverse application scenarios.
@@ -16,6 +30,10 @@ AgentDog can be used as:
 * A **risk classifier** for agent trajectories
 * A **guard module** integrated into agent systems
 
+---
+
+## Basic Information
+
 | Name | Type | Download |
 |------|------|----------|
 | AgentDog-Gen-0.6B | Generative Guard | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard) |
@@ -23,7 +41,7 @@ AgentDog can be used as:
 | AgentDog-Gen-8B | Generative Guard | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard) |
 | AgentDog-Stream-0.6B | Stream Guard | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard) |
 
-For more details, please refer to our [Technical Report](https://github.com//blob/main/_Technical_Report.pdf).
+For more details, please refer to our [blog](https://example.com/agentdog-blog) and [Technical Report](https://example.com/agentdog-technical-report).
 
 ---
 
