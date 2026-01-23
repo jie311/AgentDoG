@@ -73,14 +73,14 @@ We use a **taxonomy-guided** synthesis pipeline to generate realistic, multi-ste
 To reflect realistic agent tool use, our tool library is orders of magnitude larger than prior benchmarks. For example, it is about 86x, 55x, and 41x larger than R-Judge, ASSE-Safety, and ASSE-Security, respectively.
 
 <p align="center">
-  <img src="../data_stats/tool_comparison.png" width="90%" alt="Tool library size comparison"/>
+  <img src="figures/tool_comparison.png" width="90%" alt="Tool library size comparison"/>
 </p>
 <p align="center"><em>Figure: Tool library size compared to existing agent safety benchmarks.</em></p>
 
 We also track the coverage of the three taxonomy dimensions (risk source, failure mode, and harm type) to ensure balanced and diverse risk distributions in our synthesized data.
 
 <p align="center">
-  <img src="../data_stats/distribution_comparison.png" width="90%" alt="Taxonomy distribution comparison"/>
+  <img src="figures/distribution_comparison.png" width="90%" alt="Taxonomy distribution comparison"/>
 </p>
 <p align="center"><em>Figure: Distribution over risk source, failure mode, and harm type categories.</em></p>
 
