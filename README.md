@@ -24,13 +24,12 @@ Visit our Hugging Face or ModelScope organization (click links above), search ch
 - 🧩 **Taxonomy-Guided Diagnosis:** provides fine-grained risk labels (risk source, failure mode, and risk consequence) to explain why unsafe behavior occurs.
 - 🛡️ **Flexible Use Cases:** can serve as a benchmark, a risk classifier for trajectories, or a guard module in agent systems.
 - 🥇 **State-of-the-Art Performance:** Outperforms existing approaches on R-Judge, ASSE-Safety, and GooDoG.
-<table>
-  <tr>
-    <td align="center">📄 <a href="figures/R-judge.pdf">R-Judge</a></td>
-    <td align="center">📄 <a href="figures/asse.pdf">ASSE-Safety</a></td>
-    <td align="center">📄 <a href="figures/GooDoG.pdf">GooDoG</a></td>
-  </tr>
-</table>
+<p align="center">
+  <img src="figures/R-Judge.png" width="30%">
+  <img src="figures/asse.png" width="30%">
+  <img src="figures/GooDoG.png" width="30%">
+</p>
+
 
 
 ---
