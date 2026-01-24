@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  🤗 <a href="https://huggingface.co/AI45Research/AgentGuard"><b>Hugging Face</b></a>&nbsp&nbsp | &nbsp&nbsp
+  🤗 <a href="https://huggingface.co/collections/AI45Research/agentdog"><b>Hugging Face</b></a>&nbsp&nbsp | &nbsp&nbsp
   🤖 <a href="https://modelscope.cn/collections/AgentDoG-000000000000000000000000">ModelScope</a>&nbsp&nbsp | &nbsp&nbsp
   📄 <a href="https://github.com/AI45Lab/AgentGuard/blob/main/AgentDoG_Technical_Report.pdf">Technical Report</a>&nbsp&nbsp | &nbsp&nbsp
   🌐 <a href="https://example.com/AgentDoG-demo">Demo</a>&nbsp&nbsp | &nbsp&nbsp
@@ -35,12 +35,11 @@ Visit our Hugging Face or ModelScope organization (click links above), search ch
 
 ## Basic Information
 
-| Name | Type | Download |
-|------|------|----------|
-| AgentDoG-Gen-0.6B | Generative Guard | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard) |
-| AgentDoG-Gen-4B | Generative Guard | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard) |
-| AgentDoG-Gen-8B | Generative Guard | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard) |
-| AgentDoG-Stream-0.6B | Stream Guard | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentGuard) |
+| Name | Parameters | BaseModel | Download |
+|------|------------|-----------|----------|
+| AgentDoG-Qwen3-4B | 4B |  Qwen3-4B-Instruct-2507 | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentDoG-Qwen3-4B) |
+| AgentDoG-Qwen2.5-7B | 7B |  Qwen2.5-7B-Instruct | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentDoG-Qwen2.5-7B) |
+| AgentDoG-Llama3.1-8B | 8B | Llama3.1-8B-Instruct | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentDoG-Llama3.1-8B) |
 
 For more details, please refer to our [blog](https://example.com/AgentDoG-blog) and [Technical Report](https://example.com/AgentDoG-technical-report).
 
