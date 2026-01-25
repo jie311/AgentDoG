@@ -237,50 +237,35 @@ To evaluate the effectiveness of the proposed agentic attribution framework, we 
 
 ### Quick Start for Agentic Attribution
 
-#### Data Preparation
-Ensure your input data is a JSON file containing a trajectory (or trace) list:
-
-```json
-{
-  "trajectory": [
-    {"role": "system", "content": "System prompt..."},
-    {"role": "user", "content": "User query..."},
-    {"role": "assistant", "content": "Agent response..."},
-    {"role": "tool", "content": "Tool output..."}
-  ]
-}
-```
-
-#### Run Analysis Pipeline
 You can run the analysis in three steps:
 
-##### Step 1: Trajectory-Level Attribution
+#### Step 1: Trajectory-Level Attribution
 Analyze the contribution of each conversation step.
 ```bash
 python component_attri.py \
-  --model_id meta-llama/Meta-Llama-3.1-70B-Instruct \
-  --data_dir ./data \
+  --model_id "your_model_path" \
+  --data_dir ./samples \
   --output_dir ./results
 ```
 
-##### Step 2: Sentence-Level Attribution
+#### Step 2: Sentence-Level Attribution
 Perform fine-grained analysis on the top-K most influential steps.
 ```bash
 python sentence_attri.py \
-  --model_id meta-llama/Meta-Llama-3.1-70B-Instruct \
-  --attr_file ./results/case1_attr.json \
-  --traj_file ./data/case1.json \
+  --model_id "your_model_path" \
+  --attr_file ./results/xx_attr_trajectory.json \
+  --traj_file ./samples/xx.json \
   --top_k 3
 ```
 
-##### Step 3: Generate Visualization
+#### Step 3: Generate Visualization
 Create an interactive HTML heatmap.
 ```bash
 python case_plot_html.py \
-  --traj_attr_file ./results/case_attr.json \
-  --sent_attr_file ./results/case_attr_sentence.json \
-  --original_traj_file ./data/case.json \
-  --output_file ./results/visualization.html
+  --traj_attr_file ./results/xx_attr_trajectory.json \
+  --sent_attr_file ./results/xx_attr_sentence.json \
+  --original_traj_file ./samples/xx.json \
+  --output_file ./results/xx_visualization.html
 ```
 
 ##### One-Click Execution
@@ -300,9 +285,19 @@ AgentGuard/
 │   ├── trajectory_binary.txt
 │   ├── trajectory_finegrained.txt
 │   └── taxonomy_finegrained.txt
-└── examples/
-    ├── run_openai_moderation.py
-    └── trajectory_sample.json
+├── examples/
+│   ├── run_openai_moderation.py
+│   └── trajectory_sample.json
+├── AgenticXAI
+│   ├── case_plot_html.py
+│   ├── component_attri.py
+│   ├── README.md
+│   ├── run_all_pipeline.sh
+│   ├── samples
+│   │   ├── finance.json
+│   │   ├── resume.json
+│   │   └── transaction.json
+│   └── sentence_attri.py
 ```
 
 ---
