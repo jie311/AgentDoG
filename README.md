@@ -20,7 +20,7 @@ Visit our Hugging Face or ModelScope organization (click links above), search ch
 **AgentDoG** is a risk-aware evaluation and guarding framework for autonomous agents. It focuses on *trajectory-level risk assessment*, aiming to determine whether an agent’s execution trajectory contains safety risks under diverse application scenarios. Unlike single-step content moderation or final-output filtering, AgentDoG analyzes the full execution trace of tool-using agents to detect risks that emerge mid-trajectory.
 
 - 🧭 **Trajectory-Level Monitoring:** evaluates multi-step agent executions spanning observations, reasoning, and actions.
-- 🧩 **Taxonomy-Guided Diagnosis:** provides fine-grained risk labels (risk source, failure mode, and risk consequence) to explain why unsafe behavior occurs.
+- 🧩 **Taxonomy-Guided Diagnosis:** provides fine-grained risk labels (risk source, failure mode, and real-world harm) to explain why unsafe behavior occurs.
 - 🛡️ **Flexible Use Cases:** can serve as a benchmark, a risk classifier for trajectories, or a guard module in agent systems.
 - 🥇 **State-of-the-Art Performance:** Outperforms existing approaches on R-Judge, ASSE-Safety, and GooDoG.
 <p align="center">
@@ -48,17 +48,28 @@ For more details, please refer to our [blog](https://example.com/AgentDoG-blog) 
 
 ---
 
+## 📚 Dataset: ATBench
+
+We release **ATBench (Agent Trajectory Safety and Security Benchmark)** for trajectory-level safety evaluation and fine-grained risk diagnosis.
+
+- **Download**: 🤗 [Hugging Face Datasets](https://huggingface.co/datasets/AI45Research/ATBench)
+- **Scale**: 500 trajectories (250 safe / 250 unsafe), ~8.97 turns per trajectory (~4486 turn interactions)
+- **Tools**: 1575 unique tools appearing in trajectories; an independent unseen-tools library with 2292 tool definitions (no overlap with training tools)
+- **Labels**: binary `safe`/`unsafe`; unsafe trajectories additionally include fine-grained labels (Risk Source, Failure Mode, Real-World Harm)
+
+---
+
 ## ✨ Safety Taxonomy
-We adopt a unified, three-dimensional safety taxonomy for agentic systems. It organizes risks along three orthogonal axes, answering: why a risk arises (risk source), how it manifests in behavior (failure mode), and what harm it causes(risk consequence).
+We adopt a unified, three-dimensional safety taxonomy for agentic systems. It organizes risks along three orthogonal axes, answering: why a risk arises (risk source), how it manifests in behavior (failure mode), and what harm it causes (real-world harm).
 
 * **Risk Source**: where the threat originates in the agent loop, e.g., user inputs, environmental observations,
   external tools/APIs, or the agent's internal reasoning.
 * **Failure Mode**: how the unsafe behavior is realized, such as flawed planning, unsafe tool usage,
   instruction-priority confusion, or unsafe content generation.
-* **Risk Consequence**: the real-world impact, including privacy leakage, financial loss, physical harm,
+* **Real-World Harm**: the real-world impact, including privacy leakage, financial loss, physical harm,
   security compromise, or broader societal/psychological harms.
 
-In the current release, the taxonomy includes 8 risk-source categories, 14 failure modes, and 10 risk-consequence categories, and is used for fine-grained labeling during training and evaluation.
+In the current release, the taxonomy includes 8 risk-source categories, 14 failure modes, and 10 real-world harm categories, and is used for fine-grained labeling during training and evaluation.
 
 ---
 
@@ -77,7 +88,7 @@ Prior works (e.g., LlamaGuard, Qwen3Guard) formulate safety moderation as classi
 Concretely, we consider two tasks:
 
 - **Trajectory-level safety evaluation (binary).** Given an agent trajectory (a sequence of steps, each step containing an action and an observation), predict `safe`/`unsafe`. A trajectory is labeled `unsafe` if **any** step exhibits unsafe behavior; otherwise it is `safe`.
-- **Fine-grained risk diagnosis.** Given an `unsafe` trajectory, additionally predict the tuple (**Risk Source**, **Failure Mode**, **Real-World Harm / Risk Consequence**).
+- **Fine-grained risk diagnosis.** Given an `unsafe` trajectory, additionally predict the tuple (**Risk Source**, **Failure Mode**, **Real-World Harm**).
 
 **Prompting.** Trajectory-level evaluation uses (i) task definition, (ii) agent trajectory, and (iii) output format. Fine-grained diagnosis additionally includes the safety taxonomy for reference and asks the model to output the three labels line by line.
 
@@ -88,7 +99,7 @@ Concretely, we consider two tasks:
 
 ###  Data Synthesis and Collection
 
-We use a **taxonomy-guided** synthesis pipeline to generate realistic, multi-step agent trajectories. Each trajectory is conditioned on a sampled risk tuple (risk source, failure mode, risk consequence), then expanded into a coherent tool-augmented execution and filtered by quality checks.
+We use a **taxonomy-guided** synthesis pipeline to generate realistic, multi-step agent trajectories. Each trajectory is conditioned on a sampled risk tuple (risk source, failure mode, real-world harm), then expanded into a coherent tool-augmented execution and filtered by quality checks.
 
 <p align="center">
   <img src="figures/data_synthesis_main.png" width="95%" alt="Data Synthesis Pipeline"/>

@@ -24,7 +24,7 @@ Failure Mode:
 13. Capability Overreach
 14. Procedural Deviation or Inaction
 
-Risk Consequence (Real World Harm):
+Real-World Harm:
 1. Privacy & Confidentiality Harm
 2. Financial & Property Harm
 3. Physical Harm
@@ -35,4 +35,3 @@ Risk Consequence (Real World Harm):
 8. Public Service & Resource Harm
 9. Fairness, Equity, and Allocative Harm
 10. Functional & Opportunity Harm
-
