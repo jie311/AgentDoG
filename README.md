@@ -223,19 +223,15 @@ We also introduce a novel hierarchical framework for Agentic Attribution, design
 ### Case Study
 To evaluate the effectiveness of the proposed agentic attribution framework, we conducted several case studies across diverse scenarios. The figure illustrates how our framework localizes decision drivers across four representative cases. The highlighted regions denote the historical components and fine-grained sentences identified by our framework as the primary decision drivers.
 
-<p align="center">
-  <img src="figures/fig_xai.jpg" width="95%" alt="Data Synthesis Pipeline"/>
-</p>
-<p align="center"><em>Figure: Illustration of attribution results.</em></p>
 
 <p align="center">
-  <img src="figures/xai_diagnose_normal.jpg" width="95%" alt="Data Synthesis Pipeline"/>
+  <img src="figures/xai_attribution_agent_dog.png" width="95%" alt="Data Synthesis Pipeline"/>
 </p>
 <p align="center"><em>Figure: Illustration of attribution results across two representative scenarios.</em></p>
 
 
 <p align="center">
-  <img src="figures/xai_diagnose_compare.jpg" width="95%" alt="Data Synthesis Pipeline"/>
+  <img src="figures/xai_attribution_comparison.png" width="95%" alt="Data Synthesis Pipeline"/>
 </p>
 <p align="center"><em>Figure: Comparative attribution results between AgentDoG and Basemodel.</em></p>
 
