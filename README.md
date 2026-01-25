@@ -108,6 +108,12 @@ We also track the coverage of the three taxonomy dimensions (risk source, failur
 
 ### Training
 
+Our guard models are trained with standard **supervised fine-tuning (SFT)** on trajectory demonstrations. Given a training set $\mathcal{D}_{\text{train}}=\{(x_i, y_i)\}_{i=1}^n$, where $x_i$ is an agent trajectory and $y_i$ is the target output (binary `safe`/`unsafe`, and optionally fine-grained labels), we minimize the negative log-likelihood:
+
+$$\mathcal{L}=-\sum_{(x_i,y_i)\in\mathcal{D}_{\text{train}}}\log p_{\theta}(y_i\mid x_i).$$
+
+We fine-tuned multiple base models: **Qwen3-4B-Instruct-2507**, **Qwen2.5-7B-Instruct**, and **Llama3.1-8B-Instruct**.
+
 ---
 
 ## 📊 Performance Highlights
