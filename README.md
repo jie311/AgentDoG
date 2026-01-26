@@ -253,8 +253,9 @@ Perform fine-grained analysis on the top-K most influential steps.
 ```bash
 python sentence_attri.py \
   --model_id "your_model_path" \
-  --attr_file ./results/xx_attr_trajectory.json \
   --traj_file ./samples/xx.json \
+  --attr_file ./results/xx_attr_trajectory.json \
+  --output_file ./results/xx_attr_sentence.json \
   --top_k 3
 ```
 
@@ -262,9 +263,9 @@ python sentence_attri.py \
 Create an interactive HTML heatmap.
 ```bash
 python case_plot_html.py \
+  --original_traj_file ./samples/xx.json \
   --traj_attr_file ./results/xx_attr_trajectory.json \
   --sent_attr_file ./results/xx_attr_sentence.json \
-  --original_traj_file ./samples/xx.json \
   --output_file ./results/xx_visualization.html
 ```
 

@@ -104,45 +104,6 @@ class TrajectoryModelWrapper:
         return sum_log_prob
 
 
-def split_into_sentences_old(text):
-    if not text:
-        return []
-    parts = re.split(r'([.!?\n]+)', text)
-    sentences = []
-    for i in range(0, len(parts) - 1, 2):
-        content = parts[i]
-        delimiter = parts[i + 1]
-        full_sent = content + delimiter
-        if full_sent.strip():
-            sentences.append(full_sent)
-    if len(parts) % 2 == 1 and parts[-1].strip():
-        sentences.append(parts[-1])
-    return sentences
-
-
-def split_into_sentences_old0112(text):
-    if not text:
-        return []
-    parts = re.split(r'([.!?\n]+)', text)
-    sentences = []
-    current_sent = ""
-    for i in range(0, len(parts) - 1, 2):
-        content = parts[i]
-        delimiter = parts[i + 1]
-        if delimiter == '.' and content.strip().isdigit():
-            current_sent += content + delimiter
-        else:
-            full_sent = current_sent + content + delimiter
-            if full_sent.strip():
-                sentences.append(full_sent)
-            current_sent = ""
-    if len(parts) % 2 == 1:
-        remaining = current_sent + parts[-1]
-        if remaining.strip():
-            sentences.append(remaining)
-    return sentences
-
-
 def split_into_sentences(text):
     if not text:
         return []
@@ -180,64 +141,6 @@ def split_into_sentences(text):
                     sent = sent.replace(placeholder, original_code)
         final_sentences.append(sent)
     return final_sentences
-
-
-def generate_heatmap_html(results, output_path, meta_info):
-    html_content = f"""
-    <html>
-    <head>
-        <style>
-            body {{ font-family: sans-serif; padding: 20px; line-height: 1.6; }}
-            .step-box {{ border: 1px solid #ccc; margin-bottom: 20px; padding: 15px; border-radius: 5px; }}
-            .step-header {{ font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }}
-            .sentence {{ padding: 2px 4px; margin: 0 1px; border-radius: 3px; display: inline; }}
-            .tooltip {{ position: relative; display: inline-block; cursor: pointer; }}
-            .tooltip .tooltiptext {{
-                visibility: hidden; width: 200px; background-color: black; color: #fff;
-                text-align: center; border-radius: 6px; padding: 5px; position: absolute; z-index: 1;
-                bottom: 125%; left: 50%; margin-left: -100px; opacity: 0; transition: opacity 0.3s;
-                font-size: 12px; pointer-events: none;
-            }}
-            .tooltip:hover .tooltiptext {{ visibility: visible; opacity: 1; }}
-        </style>
-    </head>
-    <body>
-        <h2>Trajectory Attribution Heatmap</h2>
-        <p><strong>File:</strong> {meta_info.get('source_file')}</p>
-        <p><strong>Target Response:</strong> {meta_info.get('target_response_preview')}</p>
-        <hr>
-    """
-    for step in results:
-        scores = [s['scores']['total_score'] for s in step['sentence_analysis']]
-        max_score = max(scores) if scores else 1.0
-        min_score = min(scores) if scores else 0.0
-        range_score = max_score - min_score if (max_score - min_score) > 0 else 1.0
-        html_content += f"""
-        <div class="step-box">
-            <div class="step-header">
-                Step {step['step_index']} (Traj Index {step['traj_index']}) | Role: {step['role']}
-            </div>
-            <div>
-        """
-        for sent_data in step['sentence_analysis']:
-            score = sent_data['scores']['total_score']
-            text = sent_data['text']
-            normalized = (score - min_score) / range_score
-            alpha = 0.05 + (normalized * 0.75)
-            bg_color = f"rgba(255, 0, 0, {alpha:.2f})"
-            tooltip_text = f"Total: {score:.4f}<br>Drop: {sent_data['scores']['drop_score']:.4f}<br>Hold: {sent_data['scores']['hold_score']:.4f}"
-            display_text = text.replace('\n', '<br>')
-            html_content += f"""
-            <div class="sentence tooltip" style="background-color: {bg_color}">
-                {display_text}
-                <span class="tooltiptext">{tooltip_text}</span>
-            </div>
-            """
-        html_content += "</div></div>"
-    html_content += "</body></html>"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(html_content)
-    print(f"Heatmap saved to: {output_path}")
 
 
 class SentenceAttributionAnalyzer:
@@ -307,9 +210,7 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
-    base_name, _ = os.path.splitext(args.attr_file)
-    json_output_path = f"{base_name}_sentence_0108.json"
-    html_output_path = f"{base_name}_heatmap.html"
+    json_output_path = args.output_file
     print(f"{Colors.HEADER}Loading Model: {args.model_id}...{Colors.ENDC}")
     try:
         tokenizer = AutoTokenizer.from_pretrained(args.model_id)
@@ -385,11 +286,6 @@ def main():
     with open(json_output_path, 'w', encoding='utf-8') as f:
         json.dump(final_output, f, indent=2, ensure_ascii=False)
     print(f"\nJSON results saved to: {json_output_path}")
-    generate_heatmap_html(
-        final_output["sentence_attribution"],
-        html_output_path,
-        final_output["meta_info"]
-    )
 
 
 if __name__ == "__main__":

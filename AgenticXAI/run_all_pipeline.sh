@@ -42,6 +42,7 @@ for model_path in "${model_paths[@]}"; do
 
         attr_file="results/${case_tag}_${model_name}_attr_trajectory.json"
         traj_file="${data_dir}/${case_file_name}"
+        sentence_attr_output_file="results/${case_tag}_${model_name}_attr_sentence.json"
 
         echo "=============================================="
         echo "Running model: $model_name"
@@ -54,17 +55,16 @@ for model_path in "${model_paths[@]}"; do
             --model_id "$model_path" \
             --attr_file "$attr_file" \
             --traj_file "$traj_file" \
+            --output_file "$sentence_attr_output_file" \
             --top_k 3
 
 
-        sent_attr_file="results/${case_tag}_${model_name}_attr_sentence.json"
         output_file="results/${case_tag}_${model_name}_all_attr_heatmap.html"
-
 
         python case_plot_html.py \
             --traj_attr_file $attr_file \
             --original_traj_file $traj_file \
-            --sent_attr_file $sent_attr_file \
+            --sent_attr_file $sentence_attr_output_file \
             --output_file $output_file
         
 
