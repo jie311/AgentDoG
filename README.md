@@ -5,7 +5,7 @@
 <p align="center">
   🤗 <a href="https://huggingface.co/collections/AI45Research/agentdog"><b>Hugging Face</b></a>&nbsp&nbsp | &nbsp&nbsp
   🤖 <a href="https://modelscope.cn/collections/AgentDoG-000000000000000000000000">ModelScope</a>&nbsp&nbsp | &nbsp&nbsp
-  📄 <a href="https://github.com/AI45Lab/AgentDoG/blob/main/AgentDoG_Technical_Report.pdf">Technical Report</a>&nbsp&nbsp | &nbsp&nbsp
+  📄 <a href="https://arxiv.org/pdf/2601.18491">Technical Report</a>&nbsp&nbsp | &nbsp&nbsp
   🌐 <a href="https://example.com/AgentDoG-demo">Demo</a>&nbsp&nbsp | &nbsp&nbsp
   📘 <a href="https://example.com/AgentDoG-docs">Documentation</a>
 </p>
@@ -323,8 +323,8 @@ If you use AgentDoG in your research, please cite:
 
 ```bibtex
 @article{agentdog,
-  title={AgentDoG: Trajectory-Level Risk Assessment for Autonomous Agents},
-  author={Anonymous},
+  title={AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security},
+  author={Shanghai AI Lab},
   year={2025}
 }
 ```
