@@ -44,7 +44,7 @@ Visit our Hugging Face or ModelScope organization (click links above), search ch
 | AgentDoG-FG-Qwen2.5-7B | 7B | Qwen2.5-7B-Instruct | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentDoG-FG-Qwen2.5-7B) |
 | AgentDoG-FG-Llama3.1-8B | 8B | Llama3.1-8B-Instruct | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentDoG-FG-Llama3.1-8B) |
 
-For more details, please refer to our [blog](https://example.com/AgentDoG-blog) and [Technical Report](https://example.com/AgentDoG-technical-report).
+For more details, please refer to [Technical Report](https://arxiv.org/pdf/2601.18491).
 
 ---
 
@@ -218,20 +218,20 @@ python examples/run_openai_moderation.py \
 
 ---
 
-## Agentic XAI Attribution
+## 🔍 Agentic XAI Attribution
 We also introduce a novel hierarchical framework for Agentic Attribution, designed to unveil the internal drivers behind agent actions beyond simple failure localization. By decomposing interaction trajectories into pivotal components and fine-grained textual evidence, our approach explains why an agent makes specific decisions regardless of the outcome. This framework enhances the transparency and accountability of autonomous systems by identifying key factors such as memory biases and tool outputs.
 ### Case Study
 To evaluate the effectiveness of the proposed agentic attribution framework, we conducted several case studies across diverse scenarios. The figure illustrates how our framework localizes decision drivers across four representative cases. The highlighted regions denote the historical components and fine-grained sentences identified by our framework as the primary decision drivers.
 
 
 <p align="center">
-  <img src="figures/xai_attribution_agent_dog.png" width="95%" alt="Data Synthesis Pipeline"/>
+  <img src="figures/xai_attribution_agent_dog.png" width="95%" alt="xai attribution agent dog"/>
 </p>
 <p align="center"><em>Figure: Illustration of attribution results across two representative scenarios.</em></p>
 
 
 <p align="center">
-  <img src="figures/xai_attribution_comparison.png" width="70%" alt="Data Synthesis Pipeline"/>
+  <img src="figures/xai_attribution_comparison.png" width="70%" alt="xai attribution comparison"/>
 </p>
 <p align="center"><em>Figure: Comparative attribution results between AgentDoG and Basemodel.</em></p>
 
@@ -326,10 +326,7 @@ If you use AgentDoG in your research, please cite:
       title={AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security}, 
       author={Dongrui Liu and Qihan Ren and Chen Qian and Shuai Shao and Yuejin Xie and Yu Li and Zhonghao Yang and Haoyu Luo and Peng Wang and Qingyu Liu and Binxin Hu and Ling Tang and Jilin Mei and Dadi Guo and Leitao Yuan and Junyao Yang and Guanxu Chen and Qihao Lin and Yi Yu and Bo Zhang and Jiaxuan Guo and Jie Zhang and Wenqi Shao and Huiqi Deng and Zhiheng Xi and Wenjie Wang and Wenxuan Wang and Wen Shen and Zhikai Chen and Haoyu Xie and Jialing Tao and Juntao Dai and Jiaming Ji and Zhongjie Ba and Linfeng Zhang and Yong Liu and Quanshi Zhang and Lei Zhu and Zhihua Wei and Hui Xue and Chaochao Lu and Jing Shao and Xia Hu},
       year={2026},
-      eprint={2601.18491},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2601.18491}, 
+      journal={arXiv preprint arXiv:2601.18491} 
 }
 ```
 
