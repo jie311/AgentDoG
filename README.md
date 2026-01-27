@@ -44,7 +44,7 @@ Visit our Hugging Face or ModelScope organization (click links above), search ch
 | AgentDoG-FG-Qwen2.5-7B | 7B | Qwen2.5-7B-Instruct | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentDoG-FG-Qwen2.5-7B) |
 | AgentDoG-FG-Llama3.1-8B | 8B | Llama3.1-8B-Instruct | 🤗 [Hugging Face](https://huggingface.co/AI45Research/AgentDoG-FG-Llama3.1-8B) |
 
-For more details, please refer to our [blog](https://example.com/AgentDoG-blog) and [Technical Report](https://example.com/AgentDoG-technical-report).
+For more details, please refer to [Technical Report](https://example.com/AgentDoG-technical-report).
 
 ---
 
