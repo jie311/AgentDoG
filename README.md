@@ -322,11 +322,14 @@ This project is released under the **Apache 2.0 License**.
 If you use AgentDoG in your research, please cite:
 
 ```bibtex
-@article{agentdog,
-  title={AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security},
-  author={Shanghai AI Lab},
-  journal={arXiv preprint arXiv:2601.18491},
-  year={2026}
+@misc{liu2026agentdogdiagnosticguardrailframework,
+      title={AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security}, 
+      author={Dongrui Liu and Qihan Ren and Chen Qian and Shuai Shao and Yuejin Xie and Yu Li and Zhonghao Yang and Haoyu Luo and Peng Wang and Qingyu Liu and Binxin Hu and Ling Tang and Jilin Mei and Dadi Guo and Leitao Yuan and Junyao Yang and Guanxu Chen and Qihao Lin and Yi Yu and Bo Zhang and Jiaxuan Guo and Jie Zhang and Wenqi Shao and Huiqi Deng and Zhiheng Xi and Wenjie Wang and Wenxuan Wang and Wen Shen and Zhikai Chen and Haoyu Xie and Jialing Tao and Juntao Dai and Jiaming Ji and Zhongjie Ba and Linfeng Zhang and Yong Liu and Quanshi Zhang and Lei Zhu and Zhihua Wei and Hui Xue and Chaochao Lu and Jing Shao and Xia Hu},
+      year={2026},
+      eprint={2601.18491},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2601.18491}, 
 }
 ```
 
