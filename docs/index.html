@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentDoG - Risk-Aware Evaluation and Protection Framework for Autonomous Agents</title>
+  <meta name="description" content="AgentDoG is a trajectory-level risk assessment framework for autonomous agents, featuring taxonomy-guided diagnosis and flexible deployment.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="../figures/logo.png">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-content">
+      <a href="#" class="nav-logo">AgentDoG</a>
+      <ul class="nav-links">
+        <li><a href="#abstract" data-en="Abstract" data-zh="摘要">Abstract</a></li>
+        <li class="nav-dropdown">
+          <a href="#methods" data-en="Methods" data-zh="方法">Methods</a>
+          <ul class="dropdown-menu">
+            <li><a href="#taxonomy" data-en="Taxonomy" data-zh="分类体系">Taxonomy</a></li>
+            <li><a href="#data-synthesis" data-en="Synthesis" data-zh="数据合成">Synthesis</a></li>
+            <li><a href="#xai" data-en="XAI" data-zh="可解释性">XAI</a></li>
+          </ul>
+        </li>
+        <li><a href="#dataset" data-en="Dataset" data-zh="数据集">Dataset</a></li>
+        <li><a href="#performance" data-en="Performance" data-zh="性能">Performance</a></li>
+        <li><a href="#models" data-en="Models" data-zh="模型">Models</a></li>
+        <li><a href="#citation" data-en="Citation" data-zh="引用">Citation</a></li>
+      </ul>
+      <button class="lang-toggle" onclick="toggleLanguage()">中文</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-header">
+        <div class="hero-logo">
+          <img src="../figures/logo.png" alt="AgentDoG Logo">
+        </div>
+        <h1 class="hero-title">AgentDoG</h1>
+      </div>
+      <p class="hero-subtitle" data-en="A Diagnostic Guardrail Framework for AI Agent Safety and Security" data-zh="面向AI智能体安全的诊断式护栏框架">A Diagnostic Guardrail Framework for AI Agent Safety and Security</p>
+      <p class="hero-authors">
+        <a href="https://www.shlab.org.cn/" target="_blank" rel="noopener">Shanghai AILab</a>
+      </p>
+      <div class="btn-group">
+        <a href="https://arxiv.org/pdf/2601.18491" class="btn btn-primary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Paper
+        </a>
+        <a href="https://github.com/AI45Lab/AgentDoG" class="btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://huggingface.co/datasets/AI45Research/ATBench" class="btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Dataset
+        </a>
+        <a href="https://huggingface.co/collections/AI45Research/agentdog" class="btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          Models
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOTA Performance Highlight (before Abstract) -->
+  <section class="sota-highlight">
+    <div class="container">
+      <h2 class="section-title" data-en="State-of-the-Art Performance" data-zh="最先进性能">State-of-the-Art Performance</h2>
+      <p class="section-subtitle" data-en="Outperforms existing approaches on R-Judge, ASSE-Safety, and ATBench" data-zh="在 R-Judge、ASSE-Safety 和 ATBench 基准测试上超越现有方法">Outperforms existing approaches on R-Judge, ASSE-Safety, and ATBench</p>
+      <div class="sota-images-vertical">
+        <div class="sota-image">
+          <img src="../figures/binary_performance.png" alt="Binary Classification Performance" loading="lazy">
+        </div>
+        <div class="sota-image">
+          <img src="../figures/fined_performance.png" alt="Fine-Grained Classification Performance" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abstract Section -->
+  <section id="abstract" class="abstract">
+    <div class="container">
+      <h2 class="section-title" data-en="Abstract" data-zh="摘要">Abstract</h2>
+      <p class="abstract-text" data-en="Autonomous agents (e.g., tool-using LLM agents, mobile agents, web agents) often execute multi-step trajectories consisting of observations, reasoning, and actions. Existing safety mechanisms mainly focus on single-step content moderation or final-output filtering, which are insufficient for capturing risks emerging during execution. <strong>AgentDoG</strong> addresses this gap through trajectory-level risk assessment, enabling comprehensive evaluation and protection of autonomous agent systems across diverse application scenarios." data-zh="自主智能体（如工具调用型大语言模型智能体、移动端智能体、网页智能体）通常执行由观察、推理和行动组成的多步骤轨迹。现有的安全机制主要关注单步内容审核或最终输出过滤，不足以捕捉执行过程中出现的风险。<strong>AgentDoG</strong> 通过轨迹级风险评估填补了这一空白，为各种应用场景下的自主智能体系统提供全面的评估和保护。">
+        Autonomous agents (e.g., tool-using LLM agents, mobile agents, web agents) often execute multi-step trajectories
+        consisting of observations, reasoning, and actions. Existing safety mechanisms mainly focus on single-step content
+        moderation or final-output filtering, which are insufficient for capturing risks emerging during execution.
+        <strong>AgentDoG</strong> addresses this gap through trajectory-level risk assessment, enabling comprehensive
+        evaluation and protection of autonomous agent systems across diverse application scenarios.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🧭</div>
+          <h3 class="feature-title" data-en="Trajectory-Level Monitoring" data-zh="轨迹级监控">Trajectory-Level Monitoring</h3>
+          <p class="feature-desc" data-en="Evaluates entire execution trajectories rather than individual steps, capturing emergent risks that only manifest through sequences of actions." data-zh="评估完整的执行轨迹而非单个步骤，捕捉仅通过连续行动才显现的潜在风险。">
+            Evaluates entire execution trajectories rather than individual steps, capturing emergent risks that only
+            manifest through sequences of actions.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧩</div>
+          <h3 class="feature-title" data-en="Taxonomy-Guided Diagnosis" data-zh="分类引导诊断">Taxonomy-Guided Diagnosis</h3>
+          <p class="feature-desc" data-en="Leverages a comprehensive three-dimensional safety taxonomy covering risk sources, failure modes, and real-world harms for precise risk classification." data-zh="利用涵盖风险来源、失效模式和现实危害的三维安全分类体系，实现精准的风险分类。">
+            Leverages a comprehensive three-dimensional safety taxonomy covering risk sources, failure modes, and
+            real-world harms for precise risk classification.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3 class="feature-title" data-en="Flexible Deployment" data-zh="灵活部署">Flexible Deployment</h3>
+          <p class="feature-desc" data-en="Can serve as a judge model for trajectory safety evaluation, a reward model for agent alignment, or a plug-in guard module for real-time protection." data-zh="可用作轨迹安全评估的判别模型、智能体对齐的奖励模型，或实时防护的插件式护栏模块。">
+            Can serve as a judge model for trajectory safety evaluation, a reward model for agent alignment, or a plug-in guard module for real-time protection.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Methods Anchor -->
+  <div id="methods"></div>
+
+  <!-- Taxonomy Section -->
+  <section id="taxonomy">
+    <div class="container">
+      <h2 class="section-title" data-en="Safety Taxonomy" data-zh="安全分类体系">Safety Taxonomy</h2>
+      <p class="section-subtitle" data-en="A unified three-dimensional safety taxonomy for agentic systems" data-zh="面向智能体系统的统一三维安全分类体系">
+        A unified three-dimensional safety taxonomy for agentic systems
+      </p>
+
+      <p class="taxonomy-intro" data-en="We propose a unified, three-dimensional safety taxonomy that decomposes agentic risks along three orthogonal dimensions: <strong>Risk Source</strong>, <strong>Failure Mode</strong>, and <strong>Real-World Harm</strong>. These dimensions respectively answer: <em>where the risk comes from</em>, <em>how it manifests in agent behavior</em>, and <em>what real-world harm it causes</em>." data-zh="我们提出了一个统一的三维安全分类体系，将智能体风险分解为三个正交维度：<strong>风险来源</strong>、<strong>失效模式</strong>和<strong>现实危害</strong>。这三个维度分别回答：<em>风险从何而来</em>、<em>如何在智能体行为中体现</em>以及<em>造成什么现实危害</em>。">
+        We propose a unified, three-dimensional safety taxonomy that decomposes agentic risks along three orthogonal dimensions: <strong>Risk Source</strong>, <strong>Failure Mode</strong>, and <strong>Real-World Harm</strong>. These dimensions respectively answer: <em>where the risk comes from</em>, <em>how it manifests in agent behavior</em>, and <em>what real-world harm it causes</em>.
+      </p>
+
+      <div class="taxonomy-visual">
+        <div class="taxonomy-card">
+          <h3 data-en="Risk Source" data-zh="风险来源">Risk Source</h3>
+          <div class="taxonomy-count">8</div>
+          <p class="taxonomy-label" data-en="Categories" data-zh="类别">Categories</p>
+          <p class="taxonomy-desc" data-en="User inputs, environmental observations, external tools/APIs, internal logic failures" data-zh="用户输入、环境观察、外部工具/API、内部逻辑失效">User inputs, environmental observations, external tools/APIs, internal logic failures</p>
+        </div>
+        <div class="taxonomy-card">
+          <h3 data-en="Failure Mode" data-zh="失效模式">Failure Mode</h3>
+          <div class="taxonomy-count">14</div>
+          <p class="taxonomy-label" data-en="Categories" data-zh="类别">Categories</p>
+          <p class="taxonomy-desc" data-en="Behavioral failures (planning, tool use, execution) and output content failures" data-zh="行为失效（规划、工具使用、执行）和输出内容失效">Behavioral failures (planning, tool use, execution) and output content failures</p>
+        </div>
+        <div class="taxonomy-card">
+          <h3 data-en="Real-World Harm" data-zh="现实危害">Real-World Harm</h3>
+          <div class="taxonomy-count">10</div>
+          <p class="taxonomy-label" data-en="Categories" data-zh="类别">Categories</p>
+          <p class="taxonomy-desc" data-en="Privacy, financial, security, physical, psychological, reputational, societal harms" data-zh="隐私、财务、安全、物理、心理、声誉、社会危害">Privacy, financial, security, physical, psychological, reputational, societal harms</p>
+        </div>
+      </div>
+
+      <div class="taxonomy-image">
+        <img src="../figures/safety_taxonomy_overview.png" alt="Safety Taxonomy Overview" loading="lazy">
+        <p class="image-caption" data-en="Overview of the three orthogonal dimensions of the agentic safety taxonomy" data-zh="智能体安全分类体系三个正交维度概览">Overview of the three orthogonal dimensions of the agentic safety taxonomy</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Synthesis Section -->
+  <section id="data-synthesis" class="data-synthesis">
+    <div class="container">
+      <h2 class="section-title" data-en="Data Synthesis" data-zh="数据合成">Data Synthesis</h2>
+      <p class="section-subtitle" data-en="Taxonomy-guided synthesis pipeline for realistic multi-step agent trajectories" data-zh="面向真实多步智能体轨迹的分类引导合成流水线">
+        Taxonomy-guided synthesis pipeline for realistic multi-step agent trajectories
+      </p>
+
+      <p class="synthesis-intro" data-en="We use a taxonomy-guided synthesis pipeline to generate realistic, multi-step agent trajectories. Each trajectory is conditioned on a sampled risk tuple (risk source, failure mode, real-world harm), then expanded into a coherent tool-augmented execution and filtered by quality checks." data-zh="我们使用分类引导的合成流水线生成真实的多步智能体轨迹。每条轨迹以采样的风险元组（风险来源、失效模式、现实危害）为条件，然后扩展为连贯的工具增强执行，并通过质量检查进行过滤。">
+        We use a taxonomy-guided synthesis pipeline to generate realistic, multi-step agent trajectories. Each trajectory is conditioned on a sampled risk tuple (risk source, failure mode, real-world harm), then expanded into a coherent tool-augmented execution and filtered by quality checks.
+      </p>
+
+      <div class="synthesis-main-image">
+        <img src="../figures/data_synthesis_main.png" alt="Data Synthesis Pipeline" loading="lazy">
+        <p class="image-caption" data-en="Three-stage pipeline for multi-step agent safety trajectory synthesis" data-zh="多步智能体安全轨迹合成的三阶段流水线">Three-stage pipeline for multi-step agent safety trajectory synthesis</p>
+      </div>
+
+      <div class="synthesis-distribution">
+        <img src="../figures/distribution_comparison.png" alt="Distribution comparison" loading="lazy">
+        <p class="image-caption" data-en="Distribution over risk source, failure mode, and harm type categories" data-zh="风险来源、失效模式和危害类型类别的分布">Distribution over risk source, failure mode, and harm type categories</p>
+      </div>
+
+      <div class="synthesis-comparison">
+        <img src="../figures/tool_comparison.png" alt="Tool library size comparison" loading="lazy">
+        <p class="image-caption" data-en="Tool library size compared to existing agent safety benchmarks (86x larger than R-Judge)" data-zh="工具库规模与现有智能体安全基准对比（比 R-Judge 大 86 倍）">Tool library size compared to existing agent safety benchmarks (86x larger than R-Judge)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dataset Section -->
+  <section id="dataset" class="dataset">
+    <div class="container">
+      <h2 class="section-title" data-en="ATBench Dataset" data-zh="ATBench 数据集">ATBench Dataset</h2>
+      <p class="section-subtitle" data-en="A large-scale benchmark for evaluating agent trajectory safety" data-zh="用于评估智能体轨迹安全性的大规模基准测试">
+        A large-scale benchmark for evaluating agent trajectory safety
+      </p>
+
+      <div class="dataset-stats">
+        <div class="stat-card">
+          <div class="stat-value">500</div>
+          <p class="stat-label" data-en="Trajectories" data-zh="轨迹">Trajectories</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">1575</div>
+          <p class="stat-label" data-en="Unique Tools" data-zh="独立工具">Unique Tools</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">32</div>
+          <p class="stat-label" data-en="Risk Categories" data-zh="风险类别">Risk Categories</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">~8.97</div>
+          <p class="stat-label" data-en="Turns/Trajectory" data-zh="轮次/轨迹">Turns/Trajectory</p>
+        </div>
+      </div>
+
+      <div class="dataset-download">
+        <a href="https://huggingface.co/datasets/AI45Research/ATBench" class="btn btn-primary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          <span data-en="Download from HuggingFace" data-zh="从 HuggingFace 下载">Download from HuggingFace</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance Section -->
+  <section id="performance">
+    <div class="container">
+      <h2 class="section-title" data-en="Performance" data-zh="性能评估">Performance</h2>
+      <p class="section-subtitle" data-en="Comprehensive evaluation on binary classification and fine-grained risk identification tasks" data-zh="二分类和细粒度风险识别任务的综合评估">
+        Comprehensive evaluation on binary classification and fine-grained risk identification tasks
+      </p>
+
+      <div class="performance-content">
+        <!-- Binary Classification Table -->
+        <div class="perf-block">
+          <h3 data-en="Trajectory-Level Safety Evaluation" data-zh="轨迹级安全评估">Trajectory-Level Safety Evaluation</h3>
+          <p class="table-desc" data-en="Accuracy comparison across R-Judge, ASSE-Safety, and ATBench benchmarks" data-zh="R-Judge、ASSE-Safety 和 ATBench 基准测试上的准确率对比">Accuracy comparison across R-Judge, ASSE-Safety, and ATBench benchmarks</p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th data-en="Model" data-zh="模型">Model</th>
+                  <th data-en="Type" data-zh="类型">Type</th>
+                  <th>R-Judge</th>
+                  <th>ASSE-Safety</th>
+                  <th>ATBench</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="row-closed">
+                  <td>GPT-5.2</td>
+                  <td>General</td>
+                  <td>90.8</td>
+                  <td>77.4</td>
+                  <td>90.0</td>
+                </tr>
+                <tr class="row-closed">
+                  <td>Gemini-3-Flash</td>
+                  <td>General</td>
+                  <td>95.2</td>
+                  <td>75.9</td>
+                  <td>75.6</td>
+                </tr>
+                <tr class="row-closed">
+                  <td>Gemini-3-Pro</td>
+                  <td>General</td>
+                  <td>94.3</td>
+                  <td>78.5</td>
+                  <td>87.2</td>
+                </tr>
+                <tr>
+                  <td>QwQ-32B</td>
+                  <td>General</td>
+                  <td>89.5</td>
+                  <td>68.2</td>
+                  <td>63.0</td>
+                </tr>
+                <tr>
+                  <td>Qwen3-235B-A22B-Instruct</td>
+                  <td>General</td>
+                  <td>85.1</td>
+                  <td>77.6</td>
+                  <td>84.6</td>
+                </tr>
+                <tr>
+                  <td>LlamaGuard3-8B</td>
+                  <td>Guard</td>
+                  <td>61.2</td>
+                  <td>54.5</td>
+                  <td>53.3</td>
+                </tr>
+                <tr>
+                  <td>LlamaGuard4-12B</td>
+                  <td>Guard</td>
+                  <td>63.8</td>
+                  <td>56.3</td>
+                  <td>58.1</td>
+                </tr>
+                <tr>
+                  <td>Qwen3-Guard</td>
+                  <td>Guard</td>
+                  <td>40.6</td>
+                  <td>48.2</td>
+                  <td>55.3</td>
+                </tr>
+                <tr>
+                  <td>ShieldAgent</td>
+                  <td>Guard</td>
+                  <td>81.0</td>
+                  <td>79.6</td>
+                  <td>76.0</td>
+                </tr>
+                <tr class="row-highlight">
+                  <td><strong>AgentDoG-Qwen3-4B (Ours)</strong></td>
+                  <td>Guard</td>
+                  <td><strong>91.8</strong></td>
+                  <td>80.4</td>
+                  <td><strong>92.8</strong></td>
+                </tr>
+                <tr class="row-highlight">
+                  <td><strong>AgentDoG-Qwen2.5-7B (Ours)</strong></td>
+                  <td>Guard</td>
+                  <td>91.7</td>
+                  <td>79.8</td>
+                  <td>87.4</td>
+                </tr>
+                <tr class="row-highlight">
+                  <td><strong>AgentDoG-Llama3.1-8B (Ours)</strong></td>
+                  <td>Guard</td>
+                  <td>78.2</td>
+                  <td><strong>81.1</strong></td>
+                  <td>87.6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Fine-grained Classification Table -->
+        <div class="perf-block">
+          <h3 data-en="Fine-Grained Risk Diagnosis" data-zh="细粒度风险诊断">Fine-Grained Risk Diagnosis</h3>
+          <p class="table-desc" data-en="Fine-grained label accuracy (%) on ATBench for unsafe trajectories" data-zh="ATBench 上不安全轨迹的细粒度标签准确率（%）">Fine-grained label accuracy (%) on ATBench for unsafe trajectories</p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th data-en="Model" data-zh="模型">Model</th>
+                  <th data-en="Risk Source Acc" data-zh="风险来源准确率">Risk Source Acc</th>
+                  <th data-en="Failure Mode Acc" data-zh="失效模式准确率">Failure Mode Acc</th>
+                  <th data-en="Harm Type Acc" data-zh="危害类型准确率">Harm Type Acc</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="row-closed">
+                  <td>Gemini-3-Flash</td>
+                  <td>38.0</td>
+                  <td>22.4</td>
+                  <td>34.8</td>
+                </tr>
+                <tr class="row-closed">
+                  <td>GPT-5.2</td>
+                  <td>41.6</td>
+                  <td>20.4</td>
+                  <td>30.8</td>
+                </tr>
+                <tr class="row-closed">
+                  <td>Gemini-3-Pro</td>
+                  <td>36.8</td>
+                  <td>17.6</td>
+                  <td>32.0</td>
+                </tr>
+                <tr>
+                  <td>Qwen3-235B-A22B-Instruct</td>
+                  <td>19.6</td>
+                  <td>17.2</td>
+                  <td>38.0</td>
+                </tr>
+                <tr>
+                  <td>QwQ-32B</td>
+                  <td>23.2</td>
+                  <td>14.4</td>
+                  <td>34.8</td>
+                </tr>
+                <tr class="row-highlight">
+                  <td><strong>AgentDoG-FG-Qwen3-4B (Ours)</strong></td>
+                  <td><strong>82.0</strong></td>
+                  <td><strong>32.4</strong></td>
+                  <td>58.4</td>
+                </tr>
+                <tr class="row-highlight">
+                  <td><strong>AgentDoG-FG-Llama3.1-8B (Ours)</strong></td>
+                  <td>81.6</td>
+                  <td>31.6</td>
+                  <td>57.6</td>
+                </tr>
+                <tr class="row-highlight">
+                  <td><strong>AgentDoG-FG-Qwen2.5-7B (Ours)</strong></td>
+                  <td>81.2</td>
+                  <td>28.8</td>
+                  <td><strong>59.2</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Models Section -->
+  <section id="models" class="models">
+    <div class="container">
+      <h2 class="section-title" data-en="Model Checkpoints" data-zh="模型下载">Model Checkpoints</h2>
+      <p class="section-subtitle" data-en="Fine-tuned guard models for agent trajectory safety evaluation" data-zh="用于智能体轨迹安全评估的微调防护模型">
+        Fine-tuned guard models for agent trajectory safety evaluation
+      </p>
+
+      <!-- Binary Classification Models -->
+      <div class="model-category">
+        <h3 class="model-category-title" data-en="Binary Classification (Safe/Unsafe)" data-zh="二元分类（安全/不安全）">Binary Classification (Safe/Unsafe)</h3>
+        <p class="model-category-desc" data-en="Trajectory-level safety evaluation: determines whether an agent trajectory is safe or unsafe" data-zh="轨迹级安全评估：判断智能体轨迹是安全还是不安全">Trajectory-level safety evaluation: determines whether an agent trajectory is safe or unsafe</p>
+        <div class="models-row">
+          <div class="model-card">
+            <div class="model-info">
+              <h4>AgentDoG-Qwen3-4B</h4>
+            </div>
+            <div class="model-links">
+              <a href="https://huggingface.co/AI45Research/AgentDoG-Qwen3-4B" class="model-link" target="_blank" rel="noopener">HuggingFace</a>
+              <a href="https://modelscope.cn/models/AI45Research/AgentDoG-Qwen3-4B" class="model-link" target="_blank" rel="noopener">ModelScope</a>
+            </div>
+          </div>
+          <div class="model-card">
+            <div class="model-info">
+              <h4>AgentDoG-Qwen2.5-7B</h4>
+            </div>
+            <div class="model-links">
+              <a href="https://huggingface.co/AI45Research/AgentDoG-Qwen2.5-7B" class="model-link" target="_blank" rel="noopener">HuggingFace</a>
+              <a href="https://modelscope.cn/models/AI45Research/AgentDoG-Qwen2.5-7B" class="model-link" target="_blank" rel="noopener">ModelScope</a>
+            </div>
+          </div>
+          <div class="model-card">
+            <div class="model-info">
+              <h4>AgentDoG-Llama3.1-8B</h4>
+            </div>
+            <div class="model-links">
+              <a href="https://huggingface.co/AI45Research/AgentDoG-Llama3.1-8B" class="model-link" target="_blank" rel="noopener">HuggingFace</a>
+              <a href="https://modelscope.cn/models/AI45Research/AgentDoG-Llama3.1-8B" class="model-link" target="_blank" rel="noopener">ModelScope</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fine-Grained Classification Models -->
+      <div class="model-category">
+        <h3 class="model-category-title" data-en="Fine-Grained Classification (FG)" data-zh="细粒度分类（FG）">Fine-Grained Classification (FG)</h3>
+        <p class="model-category-desc" data-en="Risk diagnosis: classifies Risk Source, Failure Mode, and Real-World Harm for unsafe trajectories" data-zh="风险诊断：对不安全轨迹分类风险来源、失效模式和现实危害">Risk diagnosis: classifies Risk Source, Failure Mode, and Real-World Harm for unsafe trajectories</p>
+        <div class="models-row">
+          <div class="model-card">
+            <div class="model-info">
+              <h4>AgentDoG-FG-Qwen3-4B</h4>
+            </div>
+            <div class="model-links">
+              <a href="https://huggingface.co/AI45Research/AgentDoG-FG-Qwen3-4B" class="model-link" target="_blank" rel="noopener">HuggingFace</a>
+              <a href="https://modelscope.cn/models/AI45Research/AgentDoG-FG-Qwen3-4B" class="model-link" target="_blank" rel="noopener">ModelScope</a>
+            </div>
+          </div>
+          <div class="model-card">
+            <div class="model-info">
+              <h4>AgentDoG-FG-Qwen2.5-7B</h4>
+            </div>
+            <div class="model-links">
+              <a href="https://huggingface.co/AI45Research/AgentDoG-FG-Qwen2.5-7B" class="model-link" target="_blank" rel="noopener">HuggingFace</a>
+              <a href="https://modelscope.cn/models/AI45Research/AgentDoG-FG-Qwen2.5-7B" class="model-link" target="_blank" rel="noopener">ModelScope</a>
+            </div>
+          </div>
+          <div class="model-card">
+            <div class="model-info">
+              <h4>AgentDoG-FG-Llama3.1-8B</h4>
+            </div>
+            <div class="model-links">
+              <a href="https://huggingface.co/AI45Research/AgentDoG-FG-Llama3.1-8B" class="model-link" target="_blank" rel="noopener">HuggingFace</a>
+              <a href="https://modelscope.cn/models/AI45Research/AgentDoG-FG-Llama3.1-8B" class="model-link" target="_blank" rel="noopener">ModelScope</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- XAI Section -->
+  <section id="xai">
+    <div class="container">
+      <h2 class="section-title" data-en="Agentic XAI Attribution" data-zh="智能体可解释归因">Agentic XAI Attribution</h2>
+      <p class="section-subtitle" data-en="A hierarchical framework for explaining agent decision drivers beyond simple failure localization" data-zh="超越简单故障定位的分层框架，用于解释智能体决策驱动因素">
+        A hierarchical framework for explaining agent decision drivers beyond simple failure localization
+      </p>
+
+      <p class="xai-intro" data-en="We introduce a novel hierarchical framework for Agentic Attribution, designed to unveil the internal drivers behind agent actions. By decomposing interaction trajectories into pivotal components and fine-grained textual evidence, our approach explains why an agent makes specific decisions regardless of the outcome. This framework enhances the transparency and accountability of autonomous systems by identifying key factors such as memory biases and tool outputs." data-zh="我们引入了一种新颖的分层智能体归因框架，旨在揭示智能体行为背后的内部驱动因素。通过将交互轨迹分解为关键组件和细粒度文本证据，我们的方法解释了智能体为何做出特定决策，无论结果如何。该框架通过识别记忆偏差和工具输出等关键因素，增强了自主系统的透明度和可问责性。">
+        We introduce a novel hierarchical framework for Agentic Attribution, designed to unveil the internal drivers behind agent actions. By decomposing interaction trajectories into pivotal components and fine-grained textual evidence, our approach explains why an agent makes specific decisions regardless of the outcome.
+      </p>
+
+      <div class="xai-images-vertical">
+        <div class="xai-image-wrapper">
+          <div class="xai-image">
+            <img src="../figures/xai_attribution_agent_dog.png" alt="XAI Attribution Results" loading="lazy">
+          </div>
+          <p class="image-caption" data-en="Attribution results across representative scenarios" data-zh="代表性场景的归因结果">Attribution results across representative scenarios</p>
+        </div>
+        <div class="xai-image-wrapper">
+          <div class="xai-image">
+            <img src="../figures/xai_attribution_comparison.png" alt="XAI Attribution Comparison" loading="lazy">
+          </div>
+          <p class="image-caption" data-en="Comparative attribution: AgentDoG vs Basemodel" data-zh="对比归因：AgentDoG vs 基线模型">Comparative attribution: AgentDoG vs Basemodel</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Citation Section -->
+  <section id="citation" class="citation">
+    <div class="container">
+      <h2 class="section-title" data-en="Citation" data-zh="引用">Citation</h2>
+      <p class="section-subtitle" data-en="If you find AgentDoG useful in your research, please cite our paper" data-zh="如果您在研究中使用了 AgentDoG，请引用我们的论文">
+        If you find AgentDoG useful in your research, please cite our paper
+      </p>
+
+      <div class="citation-block">
+        <button class="copy-btn" onclick="copyBibtex()" data-en="Copy" data-zh="复制">Copy</button>
+        <pre><code>@misc{liu2026agentdogdiagnosticguardrailframework,
+      title={AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security},
+      author={Dongrui Liu and Qihan Ren and Chen Qian and Shuai Shao and Yuejin Xie and Yu Li and Zhonghao Yang and Haoyu Luo and Peng Wang and Qingyu Liu and Binxin Hu and Ling Tang and Jilin Mei and Dadi Guo and Leitao Yuan and Junyao Yang and Guanxu Chen and Qihao Lin and Yi Yu and Bo Zhang and Jiaxuan Guo and Jie Zhang and Wenqi Shao and Huiqi Deng and Zhiheng Xi and Wenjie Wang and Wenxuan Wang and Wen Shen and Zhikai Chen and Haoyu Xie and Jialing Tao and Juntao Dai and Jiaming Ji and Zhongjie Ba and Linfeng Zhang and Yong Liu and Quanshi Zhang and Lei Zhu and Zhihua Wei and Hui Xue and Chaochao Lu and Jing Shao and Xia Hu},
+      year={2026},
+      journal={arXiv preprint arXiv:2601.18491}
+}</code></pre>
+      </div>
+
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="contact-label" data-en="Project Homepage" data-zh="项目主页">Project Homepage</span>
+          <a href="https://ai45lab.github.io/AgentDoG" target="_blank" rel="noopener">https://ai45lab.github.io/AgentDoG</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label" data-en="Contact" data-zh="联系方式">Contact</span>
+          <a href="mailto:liudongrui@pjlab.org.cn">liudongrui@pjlab.org.cn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Shanghai AILab. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'zh' : 'en';
+      const btn = document.querySelector('.lang-toggle');
+      btn.textContent = currentLang === 'en' ? '中文' : 'English';
+
+      // Update all elements with data-en and data-zh attributes
+      document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = el.getAttribute(`data-${currentLang}`);
+        } else {
+          el.innerHTML = el.getAttribute(`data-${currentLang}`);
+        }
+      });
+
+      // Update html lang attribute
+      document.documentElement.lang = currentLang === 'en' ? 'en' : 'zh-CN';
+    }
+
+    function copyBibtex() {
+      const bibtex = `@misc{liu2026agentdogdiagnosticguardrailframework,
+      title={AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security},
+      author={Dongrui Liu and Qihan Ren and Chen Qian and Shuai Shao and Yuejin Xie and Yu Li and Zhonghao Yang and Haoyu Luo and Peng Wang and Qingyu Liu and Binxin Hu and Ling Tang and Jilin Mei and Dadi Guo and Leitao Yuan and Junyao Yang and Guanxu Chen and Qihao Lin and Yi Yu and Bo Zhang and Jiaxuan Guo and Jie Zhang and Wenqi Shao and Huiqi Deng and Zhiheng Xi and Wenjie Wang and Wenxuan Wang and Wen Shen and Zhikai Chen and Haoyu Xie and Jialing Tao and Juntao Dai and Jiaming Ji and Zhongjie Ba and Linfeng Zhang and Yong Liu and Quanshi Zhang and Lei Zhu and Zhihua Wei and Hui Xue and Chaochao Lu and Jing Shao and Xia Hu},
+      year={2026},
+      journal={arXiv preprint arXiv:2601.18491}
+}`;
+      navigator.clipboard.writeText(bibtex).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        const originalText = btn.textContent;
+        btn.textContent = currentLang === 'en' ? 'Copied!' : '已复制!';
+        setTimeout(() => {
+          btn.textContent = currentLang === 'en' ? 'Copy' : '复制';
+        }, 2000);
+      });
+    }
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
