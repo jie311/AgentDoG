@@ -920,6 +920,11 @@ tr:hover {
   th, td {
     padding: 8px 10px;
   }
+
+  .media-85,
+  .media-40 {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -937,6 +942,20 @@ tr:hover {
 }
 
 /* ==================== Utilities ==================== */
+.media-85,
+.media-40 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.media-85 {
+  max-width: 85%;
+}
+
+.media-40 {
+  max-width: 40%;
+}
+
 .text-gradient {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
